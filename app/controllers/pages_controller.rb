@@ -8,7 +8,9 @@ class PagesController < ApplicationController
   end
 
   def show
-    uri = URI("https://api.tronalddump.io/search/quote?query=obama")
+    @query = params[:question]
+
+    uri = URI("https://api.tronalddump.io/search/quote?query=#{@query}")
     req = Net::HTTP::Get.new(uri)
     req["Accept"] = "application/hal+json"
 
@@ -22,7 +24,15 @@ class PagesController < ApplicationController
 
     # this converts the data as a string into a JSON format
     response = JSON.parse(response.body)
-    @cleansed_response = response["_embedded"]["quotes"][2]["value"]
+    case response["status"]
+    when 412 then @cleansed_response = "must have minimum length of 3 characters"
+    else
+      @cleansed_response = if response["_embedded"] == []
+        "Donald doesn't care about #{@query}!"
+      else
+        response["_embedded"]["quotes"].first["value"]
+      end
+    end
   end
 end
 
