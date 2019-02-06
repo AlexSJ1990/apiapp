@@ -2,14 +2,13 @@ require 'net/http'
 require 'json'
 require 'uri'
 
-
 class PagesController < ApplicationController
   def home
   end
 
   def show
-    @query = params[:question]
-
+    # raise
+    @query = params[:query]
     # this converts the data as a string from the parse method into a JSON format
     response = JSON.parse(parse)
 
@@ -38,7 +37,6 @@ class PagesController < ApplicationController
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) {|http|
       http.request(req)
     }
-
     response.body
   end
 end

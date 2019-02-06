@@ -1,8 +1,17 @@
-<p>Let's play a game..</p>
+<div class="wrapper">
+  <div class="question">
+    <p>Let's play a game..</p>
+    <p>Type a word below and see What does Donald Trump think about it..</p>
 
-<p>Type a word below and see What does Donald Trump think about it..</p>
+    <%= form_tag show_path, method: :get do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find out here!"
+      %>
+    <% end %>
+  </div>
+</div>
 
-<form action="show">
-  <input type="text" name="question">
-  <input type="submit" value="Find out here">
-</form>
+
+
