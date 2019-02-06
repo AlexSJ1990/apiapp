@@ -1,7 +1,8 @@
 
-
-<p> Donald trump thinks this about <%= params[:question] %> </p>
-
-<%= @cleansed_response%>
-
-<%= link_to "Ask another question", home_path %>
+<div class="wrapper">
+  <div class="response">
+    <p> Donald trump thinks this about <%= params[:query] %> </p>
+    <%= @cleansed_response%>
+  <%= link_to "Ask another question", home_path, :class => "btn btn-primary"%>
+  </div>
+</div>
